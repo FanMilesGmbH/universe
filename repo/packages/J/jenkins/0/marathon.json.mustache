@@ -4,16 +4,19 @@
   "mem": {{jenkins.mem}},
   "instances": 1,
   "env": {
-      "CATALINA_OPTS": "{{jenkins.catalina-opts}}",
       "JENKINS_FRAMEWORK_NAME": "{{jenkins.framework-name}}",
       "JENKINS_CONTEXT": "/service/{{jenkins.framework-name}}",
-      "LD_LIBRARY_PATH": "/opt/mesosphere/lib"
+      "JENKINS_MESOS_MASTER": "{{jenkins.mesos-master}}",
+      "JVM_OPTS": "{{jenkins.jvm-opts}}",
+      "LD_LIBRARY_PATH": "/opt/mesosphere/lib",
+      "SSH_KNOWN_HOSTS": "{{jenkins.known-hosts}}"
   },
-   "container": {
+  "ports": [0, 0],
+  "container": {
        "type": "DOCKER",
        "docker": {
-           "image": "{{resource.assets.container.docker.d5d7a669836f}}",
-           "network": "HOST"
+           "image": "{{resource.assets.container.docker.e84d2658d662}}",
+           "network" : "HOST"
        },
        "volumes": [
            {
@@ -28,6 +31,7 @@
            }
        ]
    },
+   "acceptedResourceRoles": [ "{{jenkins.role}}" ],
    "healthChecks": [
     {
       "path": "/service/{{jenkins.framework-name}}",
@@ -40,6 +44,13 @@
     }
   ],
   "labels": {
+    "MARATHON_SINGLE_INSTANCE_APP": "true",
     "DCOS_PACKAGE_FRAMEWORK_NAME": "{{jenkins.framework-name}}"
-  }
+  },
+  "upgradeStrategy":{
+    "minimumHealthCapacity": 0,
+    "maximumOverCapacity": 0
+  }{{#jenkins.pinned-hostname}},
+  "constraints": [["hostname", "CLUSTER", "{{jenkins.pinned-hostname}}"]]
+  {{/jenkins.pinned-hostname}}
 }

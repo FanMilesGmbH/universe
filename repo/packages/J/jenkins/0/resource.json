@@ -1,13 +1,13 @@
 {
   "images": {
-    "icon-small": "https://downloads.mesosphere.com/jenkins/assets/icon-service-jenkins-small.png",
-    "icon-medium": "https://downloads.mesosphere.com/jenkins/assets/icon-service-jenkins-medium.png",
-    "icon-large": "https://downloads.mesosphere.com/jenkins/assets/icon-service-jenkins-large.png"
+    "icon-small": "https://downloads.mesosphere.com/universe/assets/icon-service-jenkins-small.png",
+    "icon-medium": "https://downloads.mesosphere.com/universe/assets/icon-service-jenkins-medium.png",
+    "icon-large": "https://downloads.mesosphere.com/universe/assets/icon-service-jenkins-large.png"
   },
   "assets": {
     "container": {
       "docker": {
-        "d5d7a669836f": "mesosphere/jenkins:0.1.3"
+        "e84d2658d662": "mesosphere/jenkins:0.2.3"
       }
     }
   }

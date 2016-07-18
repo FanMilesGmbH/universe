@@ -27,15 +27,34 @@
             "default": 1024.0,
             "minimum": 1024.0
         },
+        "mesos-master": {
+            "description": "URI of this cluster's Mesos master.",
+            "type": "string",
+            "default": "zk://leader.mesos:2181/mesos"
+        },
         "host-volume": {
           "description": "The location of a volume on the host to be used for persisting Jenkins configuration and build data. The final location will be derived from this value plus the name set in `framework-name` (e.g. `/mnt/host_volume/jenkins`). Note that this path must be the same on all DCOS agents.",
           "type": "string",
           "default": "/tmp"
         },
-        "catalina-opts": {
-            "description": "Optional arguments to pass to the Tomcat application server.",
+        "jvm-opts": {
+            "description": "Optional arguments to pass to the JVM.",
             "type": "string",
-            "default": "-Xms512m -Xmx512m -Dport.http=$PORT0 -Dcontext.path=$JENKINS_CONTEXT"
+            "default": "-Xms512m -Xmx512m"
+        },
+        "known-hosts": {
+            "description": "A space-separated list of hosts used to populate the SSH known hosts file on the Jenkins master.",
+            "type": "string",
+            "default": "github.com"
+        },
+        "role": {
+            "description": "The accepted resource roles (e.g. slave_public). By default, this will deploy to any agents with the * role.",
+            "type": "string",
+            "default": "*"
+        },
+        "pinned-hostname": {
+            "description": "An optional DCOS agent hostname to run this Jenkins instance on (e.g. 10.0.0.1).",
+            "type" : "string"
         }
       },
       "required": [
@@ -43,7 +62,11 @@
         "host",
         "cpus",
         "mem",
-        "host-volume"
+        "mesos-master",
+        "host-volume",
+        "jvm-opts",
+        "known-hosts",
+        "role"
       ]
     }
   },
